@@ -28,7 +28,7 @@
          border-style: groovy;
          border-width: 2px;
      }
-     #counter, #timmer, button {
+     #counter, #timer, button {
          margin: 4px;
          font-size: 1.2em;
      }
@@ -48,8 +48,8 @@
     <h2>Counter</h2>
     <span id="counter">-</span>
     <button>Click to Count</button>
-    <h2>Timmer</h2>
-    <div id="timmer">
+    <h2>Timer</h2>
+    <div id="timer">
       -
     </div>
     <script>
@@ -58,7 +58,7 @@
        const response = await fetch('/api/count', { method: 'PUT' });
        let result = ConnError;
        if (response.status === 200) {
-         let { count: result } = await response.json();
+         result = (await response.json()).count;
        }
        document.querySelector('#counter').innerHTML = result;
      };
@@ -67,7 +67,7 @@
        const response = await fetch('/api/count');
        let result = ConnError;
        if (response.status === 200) {
-         let { count: result } = await response.json();
+         result = (await response.json()).count;
        }
        document.querySelector('#counter').innerHTML = result;
        setTimeout(GetCount, 1000);
@@ -79,7 +79,7 @@
        if (response.status === 200) {
          result = await response.text();
        }
-       document.querySelector('#timmer').innerHTML = result;
+       document.querySelector('#timer').innerHTML = result;
        setTimeout(GetTime, 1000);
      };
 
