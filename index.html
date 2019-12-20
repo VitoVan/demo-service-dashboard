@@ -35,6 +35,12 @@
      p {
          color: #696d72;
      }
+     .error {
+         color: white;
+         background: #ea4335;
+         padding: 4px 16px;
+         border-radius: 4px;
+     }
     </style>
   </head>
   <body>
@@ -47,21 +53,32 @@
       -
     </div>
     <script>
+     const ConnError = '<b class="error">Connection Error</b>';
      const AddCount = async () => {
        const response = await fetch('/api/count', { method: 'PUT' });
-       const result = await response.json();
-       document.querySelector('#counter').innerHTML = result.count;
+       let result = ConnError;
+       if (response.status === 200) {
+         let { count: result } = await response.json();
+       }
+       document.querySelector('#counter').innerHTML = result;
      };
 
      const GetCount = async () => {
        const response = await fetch('/api/count');
-       const result = await response.json();
-       document.querySelector('#counter').innerHTML = result.count;
+       let result = ConnError;
+       if (response.status === 200) {
+         let { count: result } = await response.json();
+       }
+       document.querySelector('#counter').innerHTML = result;
+       setTimeout(GetCount, 1000);
      };
 
      const GetTime = async () => {
        const response = await fetch('/api/time');
-       const result = await response.text();
+       let result = ConnError;
+       if (response.status === 200) {
+         result = await response.text();
+       }
        document.querySelector('#timmer').innerHTML = result;
        setTimeout(GetTime, 1000);
      };
