@@ -1,0 +1,5 @@
+{
+  "service_name": "dashboard",
+  "collector_host": "jaeger",
+  "collector_port": 9411
+}
